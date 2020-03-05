@@ -18,9 +18,7 @@ if(isset($_POST['submit'])){
         $errors['Code']=  'This field is required';
       } else{
         $Code=$_POST['Code'];
-        if(!preg_match('/^[a-zA-Z\s]+$/', $Code)){
-          $errors['Code']= 'Enter a valid code';
-        }
+        
       }
 
 
@@ -55,9 +53,7 @@ if(isset($_POST['submit'])){
         $errors['photo']=  'This is required';
       } else{
         $photo=$_POST['photo'];
-        if(!preg_match('/^[a-zA-Z\s]+$/', $photo)){
-          $errors['photo']= 'Enter a valid name';
-        }
+        
       }
 
       $description=$_POST['description'];

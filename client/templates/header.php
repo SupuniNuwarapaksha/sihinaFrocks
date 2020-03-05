@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-    background-image: url('background.jpg');
+    background-image: url('mat.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover;
@@ -47,7 +47,7 @@ form.form1{
     background-image: url('form.jpg');
   max-width: 460px;
   margin: 20px auto; 
-    padding:92px;
+    padding:60px;
     color:#FFF;
 }
 
@@ -66,15 +66,45 @@ form.form1{
 
 .button5 {background-color: #555555;}
 
+table {
+    background-color:  #dddddd;
+  max-width:800px;
+  margin: 20px auto; 
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 #Sup{
     
     text-align: center;
+}
+
+#publish{
+    border: 0px;
+    width: 100%;
+    height: 2em;
+}
+
+#footer-padding{
+ 
 }
 </style>
 </head>
 <body>
 <div class="sidenav">
   <a href="addNew.php">Add New Items</a>
+  <a href="view.php">View Items</a>
   <a href="viewOrders.php">View Orders</a>
   <a href="publish.php">Publish Items</a>
   <a href="publishFeedback.php">Publish Feedbacks</a>
