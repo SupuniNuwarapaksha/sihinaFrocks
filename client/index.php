@@ -7,6 +7,9 @@ $result=mysqli_query($conn,$sql);
 
 $frocks=mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+
+
+
 if(isset($_POST['Delete'])){
     $id_to_delete= mysqli_real_escape_string($conn, $_POST['id_to_delete']);
     $sql="DELETE FROM frock WHERE fcode='$id_to_delete'";
@@ -28,6 +31,8 @@ mysqli_close($conn);
 <html>
 <?php include('templates/header.php') ?>
 
+
+
 <?php foreach($frocks as $frock) :?> 
 <table opacity: 0.5;>
 <tr>
@@ -43,16 +48,21 @@ mysqli_close($conn);
 <li><?php echo htmlspecialchars($frock['material']);  ?></li>
 <li><?php echo htmlspecialchars($frock['size']);  ?></li>
 <li><?php echo htmlspecialchars($frock['fdescription']);  ?></li>
-<center><div><form action="index.php" method="POST"> <center>
+<div style="width:500px;">
+<div style="float: left; width: 130px"><button type="submit" class="msgBtn" onclick="window.location.href='viewFrockById.php?id=<?php echo $frock['fcode'] ?>'" >Edit or Publish</button></div>
+<form action="index.php" method="POST"> 
 <input type="hidden" name="id_to_delete" value="<?php echo $frock['fcode'] ; ?>">
 <input type="submit" name="Delete" value="Delete" >
-</center></form></div></center>
+</form>
+</div>
 </h3>
 </ul>
 </th>
 </tr>
 </table>
 <?php endforeach; ?>
+
+
 
 <?php include('templates/footer.php') ?>
 </html> 

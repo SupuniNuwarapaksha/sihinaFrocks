@@ -70,7 +70,7 @@ if(isset($_POST['submit'])){
         $description= mysqli_real_escape_string($conn, $_POST['description']);
     
         //sql statement
-        $sql="INSERT INTO frock(fname,fcode,ftype,price,material,size,link,fdescription) VALUES ('$Name', '$Code', '$Type', '$Price', '$Material', '$Size', '$photo', '$description')";
+        $sql="INSERT INTO frock(fname,fcode,ftype,price,material,size,link,fdescription,publish) VALUES ('$Name', '$Code', '$Type', '$Price', '$Material', '$Size', '$photo', '$description',1)";
         if(mysqli_query($conn,$sql)){
          header('Location: index.php');
          //echo $pass;
@@ -120,14 +120,14 @@ if(isset($_POST['submit'])){
   <label for="Size">Choose a Size:</label>
   <br>
   <select id="Size" name="Size">
-    <option value="volvo">Adjustable</option>
-    <option value="audi">XXS</option>
-    <option value="saab">XS</option>
-    <option value="fiat">S</option>
-    <option value="audi">M</option>
-    <option value="audi">L</option>
-    <option value="audi">XL</option>
-    <option value="audi">XXL</option>
+    <option value="Adjustable">Adjustable</option>
+    <option value="XXS">XXS</option>
+    <option value="XS">XS</option>
+    <option value="S">S</option>
+    <option value="M">M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+    <option value="XXl">XXL</option>
   </select>
   <br>
   <div><?php echo $errors['Size']; ?></div>

@@ -103,6 +103,7 @@ tr:nth-child(even) {
 </head>
 <body>
 <div class="sidenav">
+<a href="index.php">Home</a>
   <a href="addNew.php">Add New Items</a>
   <a href="view.php">View Items</a>
   <a href="viewOrders.php">View Orders</a>
