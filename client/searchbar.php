@@ -1,39 +1,38 @@
 <?php
-include('../config/connectDB.php');
 
-$sql='SELECT fname,fcode,price,material,size,link,fdescription FROM frock';
+//connect to database
+$conn= mysqli_connect('localhost','tutorial', '1234', 'sihina');
 
-$result=mysqli_query($conn,$sql);
+//check the connetion
+if(!$conn){
+    echo ('Connection Error ').mysqli_connect_error();
+}
 
-$frocks=mysqli_fetch_all($result, MYSQLI_ASSOC);
+$boo='';
 
+if(isset($_GET['search'])){
+  $query = htmlspecialchars($_GET['query']); 
+ // echo $query;
 
+ $sql="SELECT * FROM frock WHERE (`fcode` LIKE '%".$query."%') OR (`fname` LIKE '%".$query."%')";
+ $result = mysqli_query($conn,$sql);
 
+ $boo=mysqli_fetch_all($result, MYSQLI_ASSOC);
+ 
+ //echo $query;
 
-if(isset($_POST['Delete'])){
-    $id_to_delete= mysqli_real_escape_string($conn, $_POST['id_to_delete']);
-    $sql="DELETE FROM frock WHERE fcode='$id_to_delete'";
-
-    if(mysqli_query($conn,$sql)){
-      header('Location: index.php');
-    }else{
-      echo "Error ".mysqli_error($conn);
-    }
-  }
-
-//free the result variable
-mysqli_free_result($result);
-
-//close the database
-mysqli_close($conn);
-
+}
 ?>
-<html>
+
 <?php include('templates/header.php') ?>
-<?php include('./searchbar.php') ?>
+<center>
+<form action="searchbar.php" method="GET">
+<input type="text" name="query">
+<input type="submit" name="search">
+</form>
 
-
-<?php foreach($frocks as $frock) :?> 
+<?php if($boo) {  ?>
+<?php foreach($boo as $frock) :?> 
 <table opacity: 0.5;>
 <tr>
 <th height="200" width="200">
@@ -61,8 +60,5 @@ mysqli_close($conn);
 </tr>
 </table>
 <?php endforeach; ?>
-
-
-
-<?php include('templates/footer.php') ?>
-</html> 
+<?php }  ?>
+</center>
