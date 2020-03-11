@@ -1,3 +1,6 @@
+<?php
+
+?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -32,6 +35,13 @@ body {
   color: #f1f1f1;
 }
 
+.sidenav p{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
@@ -103,10 +113,15 @@ tr:nth-child(even) {
 </head>
 <body>
 <div class="sidenav">
-<a href="index.php">Home</a>
+  <p>Welcome
+  <?php echo htmlspecialchars($_SESSION["username"]); ?></p>
+  <a href="logout.php">Manage Account</a>
+
+  <p>______________</p>
+  
+  <a href="index.php">Home</a>
   <a href="addNew.php">Add New Items</a>
   <a href="view.php">View Items</a>
-  <a href="viewOrders.php">View Orders</a>
   <a href="publish.php">Publish Items</a>
-  <a href="publishFeedback.php">Publish Feedbacks</a>
+  
 </div>

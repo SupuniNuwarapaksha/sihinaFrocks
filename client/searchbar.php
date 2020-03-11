@@ -1,5 +1,6 @@
 <?php
 
+
 //connect to database
 $conn= mysqli_connect('localhost','tutorial', '1234', 'sihina');
 

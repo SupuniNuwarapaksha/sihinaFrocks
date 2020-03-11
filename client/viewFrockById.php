@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+
 include('../config/connectDB.php');
 
 
@@ -29,12 +38,12 @@ if(isset($_POST['Update'])){
    $Price=mysqli_real_escape_string($conn, $_POST['Price']);
    $Material=mysqli_real_escape_string($conn, $_POST['Material']);
    $Size=mysqli_real_escape_string($conn, $_POST['Size']);
-  // $Publish=mysqli_real_escape_string($conn, $_POST['Publish']);
+   $Publish=mysqli_real_escape_string($conn, $_POST['Publish']);
   
-    $sql="UPDATE frock SET fname='$Name',ftype='$Type',price=$Price,material='$Material',size='$Size' WHERE fcode='$code'";
+    $sql="UPDATE frock SET fname='$Name',ftype='$Type',price=$Price,material='$Material',size='$Size',publish=$Publish WHERE fcode='$code'";
     
     if(mysqli_query($conn,$sql)){
-        
+      header('Location: index.php');
       }else{
         echo "Error ".mysqli_error($conn);
       }
@@ -76,8 +85,11 @@ if(isset($_POST['Update'])){
   <input type="text"  name="Size" style="#FFF" value="<?php echo htmlspecialchars($frock['size']);?>"><br>
   <br>
 
-  <label for="Publish"> Publish</label><br>
-  <input type="checkbox"  name="Publish" value="1">
+  <label for="Publish">Publish:</label><br>
+  <input type="text"  name="Publish" ><br>
+  <br>
+  <!--<label for="Publish"> Publish</label><br>
+  <input type="checkbox"  name="Publish" value="1">-->
   
 
   <div> <input type="submit"  name="Update" class="button button5"></div>
