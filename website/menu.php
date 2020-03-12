@@ -1,3 +1,32 @@
+<?php
+include('../config/connectDB.php');
+$sql1='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 1';
+$result1=mysqli_query($conn,$sql1);
+$new=mysqli_fetch_assoc($result1);
+//print_r($new);
+
+$sql2='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 1,1';
+$result2=mysqli_query($conn,$sql2);
+$new2=mysqli_fetch_assoc($result2);
+//print_r($new2);
+
+$sql3='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 2,1';
+$result3=mysqli_query($conn,$sql3);
+$new3=mysqli_fetch_assoc($result3);
+//print_r($new2);
+
+$sql4='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY rating  DESC LIMIT 1';
+$result4=mysqli_query($conn,$sql4);
+$best4=mysqli_fetch_assoc($result4);
+
+$sql5='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY rating  DESC LIMIT 1,1';
+$result5=mysqli_query($conn,$sql5);
+$best5=mysqli_fetch_assoc($result5);
+
+$sql6='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY rating  DESC LIMIT 2,1';
+$result6=mysqli_query($conn,$sql6);
+$best6=mysqli_fetch_assoc($result6);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,12 +52,58 @@ https://templatemo.com/tm-507-victory
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <style>
+            .bann{
+                padding: 180px 0px;
+                background-image: url('./img/dark1.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                text-align: center;
+	
+            }
+            .bann h4 {
+                margin-top: 0px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 700;
+                font-size: 15px;
+                color: #fff;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .bann h2 {
+                font-family: 'Spectral', serif;
+                font-size: 44px;
+                font-weight: 600;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+            .bann h1 {
+                margin-top: 0px;
+                margin-bottom: 20px;
+                font-family: 'Spectral', serif;
+                font-size: 48px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #fff;
+            }
+
+            .bann p {
+                color: #fff;
+                font-size: 14px;
+                padding: 0px 25%;
+                margin-bottom: 0px;
+            }
+
+        </style>
     </head>
 
 <body>
     <div class="header">
         <div class="container">
-            <a href="#" class="navbar-brand scroll-top">Victory</a>
+            <a href="#" class="navbar-brand scroll-top">Sihina</a>
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
                     <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
@@ -41,10 +116,10 @@ https://templatemo.com/tm-507-victory
                 <!--/.navbar-header-->
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Our Menus</a></li>
-                        <li><a href="blog.html">Blog Entries</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="menu.php">Our Store</a></li>
+                        <li><a href="blog.php">Terms and Conditions</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
                     </ul>
                 </div>
                 <!--/.navbar-collapse-->
@@ -56,12 +131,12 @@ https://templatemo.com/tm-507-victory
     <!--/.header-->
 
 
-    <section class="page-heading">
+    <section class="bann">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Our Menus</h1>
-                    <p>Curabitur at dolor sed felis lacinia ultricies sit amet vel sem. Vestibulum diam leo, sodales tempor lectus sed, varius gravida mi.</p>
+                    <h1>Our Items</h1>
+                    <p>We can make your dream come true</p>
                 </div>
             </div>
         </div>
@@ -77,39 +152,42 @@ https://templatemo.com/tm-507-victory
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="left-image">
-                                    <img src="img/breakfast_menu.jpg" alt="Breakfast">
+                                    <img src="img/dark.jpg" alt="Breakfast">
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <h2>Breakfast Menu</h2>
+                                <h2>What's New</h2>
                                 <div id="owl-breakfast" class="owl-carousel owl-theme">
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/breakfast_item.jpg" alt="">
-                                            <div class="price">$3.50</div>
+                                        <?php $linkToPic=str_replace("open","uc",$new['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $new['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Kale Chips Art Party</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $new['fname'] ?></h4>
+                                                <p><?php echo $new['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/lunch_item.jpg" alt="">
-                                            <div class="price">$7.25</div>
+                                        <?php $linkToPic=str_replace("open","uc",$new2['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $new2['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Drink Vinegar Prism</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $new2['fname'] ?></h4>
+                                                <p><?php echo $new2['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/dinner_item.jpg" alt="">
-                                            <div class="price">$11.50</div>
+                                        <?php $linkToPic=str_replace("open","uc",$new3['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $new3['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Taiyaki Gastro Tousled</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $new3['fname'] ?></h4>
+                                                <p><?php echo $new3['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -131,35 +209,38 @@ https://templatemo.com/tm-507-victory
                     <div class="lunch-menu-content">
                         <div class="row">
                             <div class="col-md-7">
-                                <h2>Lunch Menu</h2>
+                                <h2>Top Ratings</h2>
                                 <div id="owl-lunch" class="owl-carousel owl-theme">
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/lunch_item.jpg" alt="">
-                                            <div class="price">$6.50</div>
+                                        <?php $linkToPic=str_replace("open","uc",$best4['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $best4['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Mumble Ditch Corn</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $best4['fname'] ?></h4>
+                                                <p><?php echo $best4['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/breakfast_item.jpg" alt="">
-                                            <div class="price">$11.75</div>
+                                        <?php $linkToPic=str_replace("open","uc",$best5['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $best5['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Wayfare Lomo Core</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $best5['fname'] ?></h4>
+                                                <p><?php echo $best5['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item col-md-12">
                                         <div class="food-item">
-                                            <img src="img/dinner_item.jpg" alt="">
-                                            <div class="price">$16.50</div>
+                                        <?php $linkToPic=str_replace("open","uc",$best6['link']);?>
+                                            <img src="<?php echo $linkToPic ?>" alt="">
+                                            <div class="price">Rs. <?php echo $best6['price'] ?></div>
                                             <div class="text-content">
-                                                <h4>Taiyaki Gastro Tousled</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
+                                                <h4><?php echo $best6['fname'] ?></h4>
+                                                <p><?php echo $best6['fdescription'] ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +248,7 @@ https://templatemo.com/tm-507-victory
                             </div>
                             <div class="col-md-5">
                                 <div class="left-image">
-                                    <img src="img/lunch_menu.jpg" alt="">
+                                    <img src="img/top.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -177,59 +258,9 @@ https://templatemo.com/tm-507-victory
         </div>
     </section>
 
-    <section class="dinner-menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="dinner-menu-content">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="left-image">
-                                    <img src="img/dinner_menu.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <h2>Dinner Menu</h2>
-                                <div id="owl-dinner" class="owl-carousel owl-theme">
-                                    <div class="item col-md-12">
-                                        <div class="food-item">
-                                            <img src="img/dinner_item.jpg" alt="">
-                                            <div class="price">$8.25</div>
-                                            <div class="text-content">
-                                                <h4>Meal Apples Almonds</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item col-md-12">
-                                        <div class="food-item">
-                                            <img src="img/lunch_item.jpg" alt="">
-                                            <div class="price">$12.50</div>
-                                            <div class="text-content">
-                                                <h4>Ditch Corn Art</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item col-md-12">
-                                        <div class="food-item">
-                                            <img src="img/breakfast_item.jpg" alt="">
-                                            <div class="price">$16.00</div>
-                                            <div class="text-content">
-                                                <h4>Kale Chips Art Party</h4>
-                                                <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean ditcher meal...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section>
+        
     </section>
-
 
 
     <section id="book-table">
