@@ -172,6 +172,7 @@ https://templatemo.com/tm-507-victory
                         </a>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -188,6 +189,8 @@ https://templatemo.com/tm-507-victory
                 </div>
             </div>
             <?php foreach($new as $frock) :?> 
+                <div class="service-item">
+                <a href="menu.php">
                 <div class="col-md-4">
                     <div class="food-item">
                         <h2><?php echo $frock['fname'] ?></h2>
@@ -200,6 +203,7 @@ https://templatemo.com/tm-507-victory
                         </div>
                     </div>
                 </div>
+            </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -213,6 +217,7 @@ https://templatemo.com/tm-507-victory
                 </div>
             </div>
             <?php foreach($best as $frock) :?> 
+                <div class="service-item">
                 <div class="col-md-4">
                     <div class="food-item">
                         <h2><?php echo $frock['fname'] ?></h2>
@@ -224,6 +229,7 @@ https://templatemo.com/tm-507-victory
                             <p><?php echo $frock['fdescription'] ?></p>
                         </div>
                     </div>
+                </div>
                 </div>
                 <?php endforeach; ?>
             </div>

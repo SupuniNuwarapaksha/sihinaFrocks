@@ -26,6 +26,11 @@ $best5=mysqli_fetch_assoc($result5);
 $sql6='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY rating  DESC LIMIT 2,1';
 $result6=mysqli_query($conn,$sql6);
 $best6=mysqli_fetch_assoc($result6);
+
+$sql7='SELECT fname,fcode,price,material,size,link,fdescription FROM frock';
+$result7=mysqli_query($conn,$sql7);
+$frocks=mysqli_fetch_all($result7, MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -258,8 +263,30 @@ https://templatemo.com/tm-507-victory
         </div>
     </section>
 
-    <section>
-        
+    <section class="services">
+        <div class="container">
+            <div class="row">
+            <?php foreach($frocks as $frock) :?> 
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                <?php $linkToPic=str_replace("open","uc",$frock['link']);?>
+                <div class="item col-md-12">
+                     <div class="food-item">
+                        <a href="menu.php">
+                        <img src="<?php echo $linkToPic ?>" >
+                        <div class="price">Rs. <?php echo $frock['price'] ?></div>
+                        <div class="text-content">
+                            <h4><?php echo $frock['fname'] ?></h4>
+                            <p><?php echo $frock['fdescription'] ?></p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                </div>
+            <?php endforeach; ?>   
+             
+            </div>
+        </div>
     </section>
 
 
