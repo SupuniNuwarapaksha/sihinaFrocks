@@ -106,8 +106,12 @@ tr:nth-child(even) {
     height: 2em;
 }
 
-#footer-padding{
- 
+#editfrom{
+ padding: 200px 20px;
+ max-width:600px;
+ max-height:600px;
+ background-image: url('form.jpg');
+ color:#FFF;
 }
 </style>
 </head>
@@ -115,7 +119,7 @@ tr:nth-child(even) {
 <div class="sidenav">
   <p>Welcome
   <?php echo htmlspecialchars($_SESSION["username"]); ?></p>
-  <a href="logout.php">Manage Account</a>
+  <a href="editprofile.php">Manage Account</a>
 
   <p>______________</p>
   
