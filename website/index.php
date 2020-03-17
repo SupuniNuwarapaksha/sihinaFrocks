@@ -1,4 +1,5 @@
 <?php
+//include('./registration.php');
 include('../config/connectDB.php');
 $sql1='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 3';
 $result1=mysqli_query($conn,$sql1);
@@ -9,6 +10,26 @@ $sql2='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER
 $result2=mysqli_query($conn,$sql2);
 $best=mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
+if(isset($_POST['form-submit'])){
+    
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+    } else {
+        $uname=$_SESSION["username"];
+        $fdate=$_POST['fdate'];
+        $tdate=$_POST['Tdate'];
+        $delivery=$_POST['method'];
+        $address=$_POST['address'];
+
+        //sql
+        $sql="INSERT INTO order_item(user_name,fdate,tdate,delivery,address,accept) VALUES ('$uname','$fdate','$tdate','$delivery','$address',0)";
+        
+        if(mysqli_query($conn,$sql)) {
+            header("location: thanks.php");
+        }
+
+    } 
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,6 +82,25 @@ https://templatemo.com/tm-507-victory
                 font-weight: 600;
                 color: #fff;
                 text-transform: uppercase;
+            }
+
+            #book-table{
+                padding: 80px 0px;
+                background-image: url('./img/ban.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                text-align: center;
+            }
+
+            #book-table .heading h2 {
+                margin-top: 0px;
+                margin-bottom: 70px;
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                color: #fff;
             }
 
         </style>
@@ -122,7 +162,7 @@ https://templatemo.com/tm-507-victory
                         </div>
                         <span>or</span>
                         <div class="primary-white-button">
-                            <a href="#" class="scroll-link" data-id="book-table">Order Now</a>
+                            <a href="#" class="scroll-link" data-id="book-table">Make an Appointment</a>
                         </div>
                     </div>
                 </div>
@@ -190,7 +230,7 @@ https://templatemo.com/tm-507-victory
             </div>
             <?php foreach($new as $frock) :?> 
                 <div class="service-item">
-                <a href="menu.php">
+                <a href="order.php?id=<?php echo $frock['fcode'] ?>">
                 <div class="col-md-4">
                     <div class="food-item">
                         <h2><?php echo $frock['fname'] ?></h2>
@@ -203,8 +243,63 @@ https://templatemo.com/tm-507-victory
                         </div>
                     </div>
                 </div>
+            </a>
             </div>
                 <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <section id="book-table">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
+                        <h2>Design Your dream dress</h2>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-2 col-sm-12">
+                    <div class="left-image">
+                        <img src="img/sajbanner.jpg" height="282">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="right-info">
+                        <h4>Reserve a Day</h4>
+                        <form id="form-submit" name="form-submit" action="" method="get">
+                        <div class="col-md-12">
+                            <fieldset>
+                            Select Date
+                                <input name="fdate" type="date" class="form-control" id="fdate" placeholder="From Date" required="">
+                            </fieldset>
+                        </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <select required name='hour' onchange='this.form.()'>
+                                            <option value="">Select hour</option>
+                                            <option value="10-00">10:00</option>
+                                            <option value="11-00">11:00</option>
+                                            <option value="12-00">12:00</option>
+                                            <option value="13-00">13:00</option>
+                                            <option value="14-00">14:00</option>
+                                            <option value="15-00">15:00</option>
+                                            <option value="16-00">16:00</option>
+                                            <option value="17-00">17:00</option>
+                                            <option value="18-00">18:00</option>
+                                            <option value="19-00">19:00</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" name="form-submit" class="btn">Reserve</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -217,6 +312,7 @@ https://templatemo.com/tm-507-victory
                 </div>
             </div>
             <?php foreach($best as $frock) :?> 
+                <a href="order.php?id=<?php echo $frock['fcode'] ?>">
                 <div class="service-item">
                 <div class="col-md-4">
                     <div class="food-item">
@@ -231,6 +327,7 @@ https://templatemo.com/tm-507-victory
                     </div>
                 </div>
                 </div>
+            </a>
                 <?php endforeach; ?>
             </div>
         </div>

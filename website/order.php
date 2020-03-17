@@ -1,5 +1,19 @@
 <?php
+// Initialize the session
+session_start();
+
+
+
 include('../config/connectDB.php');
+
+if(isset($_GET['id'])){
+    $code=mysqli_real_escape_string($conn, $_GET['id']);
+    $sql="SELECT * FROM frock WHERE fcode='$code'";
+    $res=mysqli_query($conn,$sql);
+    $f=mysqli_fetch_assoc($res);
+}
+
+
 $sql1='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 1';
 $result1=mysqli_query($conn,$sql1);
 $new=mysqli_fetch_assoc($result1);
@@ -30,6 +44,29 @@ $best6=mysqli_fetch_assoc($result6);
 $sql7='SELECT fname,fcode,price,material,size,link,fdescription FROM frock';
 $result7=mysqli_query($conn,$sql7);
 $frocks=mysqli_fetch_all($result7, MYSQLI_ASSOC);
+
+//post data into the database
+if(isset($_POST['form-submit'])){
+    
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+    } else {
+        $uname=$_SESSION["username"];
+        $fdate=$_POST['fdate'];
+        $tdate=$_POST['Tdate'];
+        $delivery=$_POST['method'];
+        $address=$_POST['address'];
+
+        //sql
+        $sql="INSERT INTO order_item(user_name,fdate,tdate,delivery,address,accept) VALUES ('$uname','$fdate','$tdate','$delivery','$address',0)";
+        
+        if(mysqli_query($conn,$sql)) {
+            header("location: thanks.php");
+        }
+
+    } 
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -136,18 +173,73 @@ https://templatemo.com/tm-507-victory
     <!--/.header-->
 
 
-    <section class="bann">
+    
+
+
+
+    <section >
         <div class="container">
-            <div class="row">
+            <div class="row" >
                 <div class="col-md-12">
-                    <h1>Our Items</h1>
-                    <p>We can make your dream come true</p>
+                    <div class="heading">
+                       <center> <h2>Book Your Dress Now</h2></center>
+                    </div>
                 </div>
+                <div class="col-md-4 col-md-offset-2">
+                    <div class="left-image">
+                    <?php $linkToPic=str_replace("open","uc",$f['link']);?>
+                        <img src="<?php echo $linkToPic ?>" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="right-info">
+                        <form id="form-submit" action="" method="POST">
+
+                            <div class="row">
+                                <div>
+                                   <center> <h5><?php echo $f['fname']; ?> </h5>
+                                    <h5>Rs. <?php echo $f['price']; ?> per day</h5> </center>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        From Date
+                                        <input name="fdate" type="date" class="form-control" id="fdate" placeholder="From Date" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        To Date
+                                        <input name="Tdate" type="date" class="form-control" id="Tdate" placeholder="From Date" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <select required name='method' onchange='this.form.()'>
+                                            <option value="">Delivery Method</option>
+                                            <option value="p">I pick up personally</option>
+                                            <option value="d">Deliver me</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input name="address" type="address" class="form-control" id="address" placeholder="Delivery Address" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" name="form-submit" class="btn">Book Table</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
-
-
 
     <section class="breakfast-menu">
         <div class="container">
@@ -272,114 +364,10 @@ https://templatemo.com/tm-507-victory
         </div>
     </section>
 
-    <section class="services">
-        <div class="container">
-            <div class="row">
-            <?php foreach($frocks as $frock) :?> 
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                <?php $linkToPic=str_replace("open","uc",$frock['link']);?>
-                <div class="item col-md-12">
-                     <div class="food-item">
-                     <a href="order.php?id=<?php echo $frock['fcode'] ?>">
-                        <img src="<?php echo $linkToPic ?>" >
-                        <div class="price">Rs. <?php echo $frock['price'] ?></div>
-                        <div class="text-content">
-                            <h4><?php echo $frock['fname'] ?></h4>
-                            <p><?php echo $frock['fdescription'] ?></p>
-                        </div>
-                        </a>
-                    </div>
-                </div>
-
-                </div>
-            <?php endforeach; ?>   
-             
-            </div>
-        </div>
-    </section>
 
 
-    <section id="book-table">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading">
-                        <h2>Book Your Table Now</h2>
-                    </div>
-                </div>
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="left-image">
-                        <img src="img/book_left_image.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="right-info">
-                        <h4>Reservation</h4>
-                        <form id="form-submit" action="" method="get">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required name='day' onchange='this.form.()'>
-                                            <option value="">Select day</option>
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                            <option value="Saturday">Saturday</option>
-                                            <option value="Sunday">Sunday</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required name='hour' onchange='this.form.()'>
-                                            <option value="">Select hour</option>
-                                            <option value="10-00">10:00</option>
-                                            <option value="12-00">12:00</option>
-                                            <option value="14-00">14:00</option>
-                                            <option value="16-00">16:00</option>
-                                            <option value="18-00">18:00</option>
-                                            <option value="20-00">20:00</option>
-                                            <option value="22-00">22:00</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <input name="name" type="name" class="form-control" id="name" placeholder="Full name" required="">
-                                    </fieldset> 
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <input name="phone" type="phone" class="form-control" id="phone" placeholder="Phone number" required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required class="person" name='persons' onchange='this.form.()'>
-                                            <option value="">How many persons?</option>
-                                            <option value="1-Person">1 Person</option>
-                                            <option value="2-Persons">2 Persons</option>
-                                            <option value="3-Persons">3 Persons</option>
-                                            <option value="4-Persons">4 Persons</option>
-                                            <option value="5-Persons">5 Persons</option>
-                                            <option value="6-Persons">6 Persons</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit" class="btn">Book Table</button>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+    
 
 
 
