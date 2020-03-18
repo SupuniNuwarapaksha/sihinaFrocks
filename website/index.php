@@ -1,4 +1,8 @@
 <?php
+
+// Initialize the session
+session_start();
+
 //include('./registration.php');
 include('../config/connectDB.php');
 $sql1='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 3';
@@ -17,12 +21,10 @@ if(isset($_POST['form-submit'])){
     } else {
         $uname=$_SESSION["username"];
         $fdate=$_POST['fdate'];
-        $tdate=$_POST['Tdate'];
-        $delivery=$_POST['method'];
-        $address=$_POST['address'];
+        $hour=$_POST['hour'];
 
         //sql
-        $sql="INSERT INTO order_item(user_name,fdate,tdate,delivery,address,accept) VALUES ('$uname','$fdate','$tdate','$delivery','$address',0)";
+        $sql="INSERT INTO appointment(uname,fdate,hour,accept) VALUES ('$uname','$fdate','$hour',0)";
         
         if(mysqli_query($conn,$sql)) {
             header("location: thanks.php");
@@ -182,7 +184,7 @@ https://templatemo.com/tm-507-victory
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="service-item">
-                        <a href="menu.php">
+                        <a href="evening.php">
                         <img src="img/evening.jpg" alt="Breakfast">
                         <h4>Evening</h4>
                         </a>
@@ -190,7 +192,7 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="service-item">
-                        <a href="menu.php">
+                        <a href="dark.php">
                         <img src="img/dark1.jpg" alt="Lunch">
                         <h4>Dark Theme</h4>
                         </a>
@@ -198,7 +200,7 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="service-item">
-                        <a href="menu.php">
+                        <a href="nature.php">
                         <img src="img/nature.jpg" alt="Dinner">
                         <h4>Nature Theme</h4>
                         </a>
@@ -206,7 +208,7 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="service-item">
-                        <a href="menu.php">
+                        <a href="light.php">
                         <img src="img/light.jpg" alt="Desserts">
                         <h4>Light Theme</h4>
                         </a>
@@ -266,7 +268,7 @@ https://templatemo.com/tm-507-victory
                 <div class="col-md-4 col-sm-12">
                     <div class="right-info">
                         <h4>Reserve a Day</h4>
-                        <form id="form-submit" name="form-submit" action="" method="get">
+                        <form id="form-submit" name="form-submit" action="" method="POST">
                         <div class="col-md-12">
                             <fieldset>
                             Select Date

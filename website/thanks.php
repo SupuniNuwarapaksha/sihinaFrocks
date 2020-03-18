@@ -1,4 +1,4 @@
-<script>setTimeout(function() { location.replace("index.php")},5000);</script>
+<script>setTimeout(function() { location.replace("index.php")},3000);</script>
 
 <!DOCTYPE html>
 <html>
