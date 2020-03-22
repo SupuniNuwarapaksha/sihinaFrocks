@@ -58,7 +58,7 @@ if(isset($_POST['form-submit'])){
         $address=$_POST['address'];
 
         //sql
-        $sql="INSERT INTO order_item(user_name,fdate,tdate,delivery,address,accept) VALUES ('$uname','$fdate','$tdate','$delivery','$address',0)";
+        $sql="INSERT INTO order_item(user_name,fdate,tdate,delivery,address,accept,frock_id) VALUES ('$uname','$fdate','$tdate','$delivery','$address',0,'$code')";
         
         if(mysqli_query($conn,$sql)) {
             header("location: thanks.php");
@@ -159,10 +159,18 @@ https://templatemo.com/tm-507-victory
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="menu.php">Our Store</a></li>
-                        <li><a href="blog.php">Terms and Conditions</a></li>
+                        <li><a href="store.php">Our Store</a></li>
+                        <li><a href="about.php">About Us</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
+                        <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {  ?>
+                        <li><a href="login.php">LOGIN/REGISTER</a></li>
+                        <?php } else { ?>
+                        <li><a href="profile.php"><?php echo $_SESSION["username"] ;?></a></li>
+                        <?php } ?>
+                        <li>
+                        
                     </ul>
+                    
                 </div>
                 <!--/.navbar-collapse-->
             </nav>
@@ -375,11 +383,11 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <p>Copyright &copy; 2020 Victory Template</p>
+                    <p>Copyright &copy; 2020 Sihina Frocks</p>
                 </div>
                 <div class="col-md-4">
                     <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a rel="nofollow" href="https://fb.com/templatemo"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-rss"></i></a></li>
@@ -387,7 +395,7 @@ https://templatemo.com/tm-507-victory
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <p>Design: TemplateMo</p>
+                    <p></p>
                 </div>
             </div>
         </div>

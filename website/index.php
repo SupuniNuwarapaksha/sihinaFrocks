@@ -42,7 +42,7 @@ if(isset($_POST['form-submit'])){
 Victory HTML CSS Template
 https://templatemo.com/tm-507-victory
 -->
-        <title>Victory HTML CSS Template</title>
+        <title>Sihina</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -105,6 +105,8 @@ https://templatemo.com/tm-507-victory
                 color: #fff;
             }
 
+            
+
         </style>
     </head>
 
@@ -125,11 +127,21 @@ https://templatemo.com/tm-507-victory
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="menu.php">Our Store</a></li>
-                        <li><a href="blog.php">Terms and Conditions</a></li>
+                        <li><a href="store.php">Our Store</a></li>
+                        <li><a href="about.php">About Us</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
+                        <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {  ?>
+                        <li><a href="login.php">LOGIN/REGISTER</a></li>
+                        <?php } else { ?>
+                        <li><a href="profile.php"><?php echo $_SESSION["username"] ;?></a></li>
+                        <?php } ?>
+                        <li>
+                        
                     </ul>
+                    
                 </div>
+
+            
                 <!--/.navbar-collapse-->
             </nav>
             <!--/.navbar-->

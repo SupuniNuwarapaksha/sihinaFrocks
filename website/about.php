@@ -11,7 +11,7 @@ session_start();
 Victory HTML CSS Template
 https://templatemo.com/tm-507-victory
 -->
-        <title>Contact page</title>
+        <title>Terms and Conditions</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -37,7 +37,7 @@ https://templatemo.com/tm-507-victory
                 text-align: center;
 	
             }
-            .bann p {
+            .bann h4 {
                 margin-top: 0px;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 700;
@@ -100,79 +100,57 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Contact Us</h1>
-                    <p>We hope to respond as soon as possible.</p>
+                    <h1>About Us</h1>
                 </div>
             </div>
         </div>
     </section>
 
 
-
-    <section class="contact-us">
+    <section class="blog-page">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="section-heading">
-                        <h2>Message</h2>
-                    </div>
-                    <form id="contact" action="" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <fieldset>
-                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                                </fieldset>
-                                <fieldset>
-                                    <input name="email" type="text" class="form-control" id="email" placeholder="Your email..." required="">
-                                </fieldset>
-                                <fieldset>
-                                    <input name="phone" type="text" class="form-control" id="phone" placeholder="Your phone..." required="">
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6">
-                                <fieldset>
-                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                                </fieldset>
-                                <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Message</button>
-                                </fieldset>
-                            </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="blog-item">
+                        <img src="img/sajbanner.jpg" alt="">
+                    
+                        <div class="down-content">
+                            <h3>Our Success is Your Happiness</h3>
+                            <span></span>
+                            <p>We design the latest pre-shoot dress for rent and for selling. Our aim is to make your dream pre-shoot dress a reality.</p>
+                            <p>We import the best materials for you.</p>
+                            
+                            <ul>
+                            <li>You can rent frocks from us.</li>
+                            <li>Buys our frocks.</li>
+                           
+                            <li>Design Your dream dress with us.</li>
+                            </ul>
+                            
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="section-heading contact-info">
-                        <h2>Contact Info</h2>
-                        <p>We are here to answer your calls between office hours</p>
-                        <p>Customer Care Hotline: 0352289399</p>
-                        <p>Online Orders: 0352289399</p>
-                        <p>Email: sarojanimuniara@gmail.com</p>
-                        
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section class="map">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="map">
-        <!-- How to change your own map point
-            1. Go to Google Maps
-            2. Click on your location point
-            3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
-        -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.014810319852!2d80.2883304822254!3d7.124280085861773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae30f9cae6e122b%3A0x7f6bdf2b0689dd97!2sKotiyakumbura%20Post%20Station!5e0!3m2!1sen!2slk!4v1584888166868!5m2!1sen!2slk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>                    </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="blog-item">
+                        <img src="img/evening.jpg" alt="">
+                        
+                        <div class="down-content">
+                            <h3>Terms and Conditions</h3>
+                            <span></span>
+                            <p> </p>
+                            
+                        </div>
+                    </div>
                 </div>
+                
+                
+                
             </div>
         </div>
     </section>
 
+
+    <section class="bann"></section>
 
 
     <footer>

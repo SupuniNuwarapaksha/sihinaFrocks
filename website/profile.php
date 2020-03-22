@@ -1,6 +1,15 @@
 <?php
-// Initialize the session
 session_start();
+
+
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: index.php");
+} else{
+    $username=$_SESSION["username"];
+}
+include('../config/connectDB.php');
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +20,7 @@ session_start();
 Victory HTML CSS Template
 https://templatemo.com/tm-507-victory
 -->
-        <title>Contact page</title>
+        <title>profile</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -28,7 +37,7 @@ https://templatemo.com/tm-507-victory
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <style>
-        .bann{
+            .bann{
                 padding: 180px 0px;
                 background-image: url('./img/dark1.jpg');
                 background-repeat: no-repeat;
@@ -37,7 +46,7 @@ https://templatemo.com/tm-507-victory
                 text-align: center;
 	
             }
-            .bann p {
+            .bann h4 {
                 margin-top: 0px;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 700;
@@ -47,13 +56,31 @@ https://templatemo.com/tm-507-victory
                 letter-spacing: 0.5px;
             }
 
-            .bann h1 {
+            .bann h2 {
                 font-family: 'Spectral', serif;
-                font-size: 60px;
+                font-size: 44px;
                 font-weight: 600;
                 color: #fff;
                 text-transform: uppercase;
             }
+
+            .bann h1 {
+                margin-top: 0px;
+                margin-bottom: 20px;
+                font-family: 'Spectral', serif;
+                font-size: 48px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #fff;
+            }
+
+            .bann p {
+                color: #fff;
+                font-size: 14px;
+                padding: 0px 25%;
+                margin-bottom: 0px;
+            }
+
         </style>
     </head>
 
@@ -100,78 +127,84 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Contact Us</h1>
-                    <p>We hope to respond as soon as possible.</p>
+                    <h1>Sihina Frocks</h1>
+                    <p>We can make your dream come true</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <section>
+    <p></p>
+    <p></p>
+    </section>
 
 
-    <section class="contact-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="section-heading">
-                        <h2>Message</h2>
-                    </div>
-                    <form id="contact" action="" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <fieldset>
-                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                                </fieldset>
-                                <fieldset>
-                                    <input name="email" type="text" class="form-control" id="email" placeholder="Your email..." required="">
-                                </fieldset>
-                                <fieldset>
-                                    <input name="phone" type="text" class="form-control" id="phone" placeholder="Your phone..." required="">
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6">
-                                <fieldset>
-                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                                </fieldset>
-                                <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Message</button>
-                                </fieldset>
-                            </div>
+    <section class="services">
+            <div class="container">
+                <div class="row">
+
+    <?php
+    include('../config/connectDB.php');
+    $sql="SELECT * FROM `order_item` WHERE user_name='$username'";
+    $result=mysqli_query($conn,$sql);
+    $orders=mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //print_r($orders);
+
+
+    foreach($orders as $order){
+        
+        
+        $fcode=$order['frock_id'];
+        $sql1="SELECT * FROM frock WHERE fcode='$fcode'";
+        $respond=mysqli_query($conn,$sql1);
+        $frock=mysqli_fetch_assoc($respond);
+       // print_r($frock);
+
+       
+       ?>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="item col-md-12">
+                     <div class="food-item">
+                     <?php
+                        $a=(strtotime($order['tdate'])-strtotime($order['fdate']))/86400;
+                        $fee=$a*$frock['price'];
+                     ?>
+                     <?php $linkToPic=str_replace("open","uc",$frock['link']);?>
+                     <img src="<?php echo $linkToPic ?>" >
+                     <div class="price">Rs. <?php echo $fee; ?></div>
+                        <div class="text-content">
+                            <h4><?php echo $frock['fname']; ?></h4>
+                            <p>From <?php echo $order['fdate']; ?></p>
+                            <p>To <?php echo $order['tdate']; ?></p>
+                            <?php
+                            $a=(strtotime($order['tdate'])-strtotime($order['fdate']))/86400;
+                            ?>
+                            <p>For <?php echo $a; ?> days</p>
+                            <?php if($order['accept']==1) : ?>
+                            <p style="color:green;">accepted</p> 
+                             <?php if($order['delivery']=='p') : ?> <p>You have to come to us and pickup persinally</p>
+                             <?php else: ?> <p>We will deliver your order to the below address <br><?php echo $order['address'] ?></p>
+                            <?php endif; ?>
+                            <?php elseif($order['accept']==0): ?> <p style="color:blue;">Not yet </p>
+                            <?php elseif($order['accept']==2): ?> <p style="color:red;">We are sorry! The frock was already booked</p>
+                            <?php endif; ?>
                         </div>
-                    </form>
+                        </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="section-heading contact-info">
-                        <h2>Contact Info</h2>
-                        <p>We are here to answer your calls between office hours</p>
-                        <p>Customer Care Hotline: 0352289399</p>
-                        <p>Online Orders: 0352289399</p>
-                        <p>Email: sarojanimuniara@gmail.com</p>
-                        
-                    </div>
+
                 </div>
-            </div>
+               
+    
+    <?php } ?>
+    </div>
         </div>
     </section>
+    
+    
 
-
-
-    <section class="map">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="map">
-        <!-- How to change your own map point
-            1. Go to Google Maps
-            2. Click on your location point
-            3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
-        -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.014810319852!2d80.2883304822254!3d7.124280085861773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae30f9cae6e122b%3A0x7f6bdf2b0689dd97!2sKotiyakumbura%20Post%20Station!5e0!3m2!1sen!2slk!4v1584888166868!5m2!1sen!2slk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
 
 
@@ -197,7 +230,6 @@ https://templatemo.com/tm-507-victory
         </div>
     </footer>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
@@ -206,6 +238,7 @@ https://templatemo.com/tm-507-victory
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 
+<!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>	-->
     <script type="text/javascript">
     $(document).ready(function() {
         // navigation click actions 

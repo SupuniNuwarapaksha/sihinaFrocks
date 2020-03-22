@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../config/connectDB.php');
 $sql1='SELECT fname,fcode,price,material,size,link,fdescription FROM frock ORDER BY added_at DESC LIMIT 1';
 $result1=mysqli_query($conn,$sql1);
@@ -41,7 +42,7 @@ $frocks=mysqli_fetch_all($result7, MYSQLI_ASSOC);
 Victory HTML CSS Template
 https://templatemo.com/tm-507-victory
 -->
-        <title>Victory - Our Menus</title>
+        <title>Our store</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -122,10 +123,18 @@ https://templatemo.com/tm-507-victory
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="menu.php">Our Store</a></li>
-                        <li><a href="blog.php">Terms and Conditions</a></li>
+                        <li><a href="store.php">Our Store</a></li>
+                        <li><a href="about.php">About Us</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
+                        <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {  ?>
+                        <li><a href="login.php">LOGIN/REGISTER</a></li>
+                        <?php } else { ?>
+                        <li><a href="profile.php"><?php echo $_SESSION["username"] ;?></a></li>
+                        <?php } ?>
+                        <li>
+                        
                     </ul>
+                    
                 </div>
                 <!--/.navbar-collapse-->
             </nav>
@@ -299,87 +308,7 @@ https://templatemo.com/tm-507-victory
     </section>
 
 
-    <section id="book-table">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading">
-                        <h2>Book Your Table Now</h2>
-                    </div>
-                </div>
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="left-image">
-                        <img src="img/book_left_image.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="right-info">
-                        <h4>Reservation</h4>
-                        <form id="form-submit" action="" method="get">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required name='day' onchange='this.form.()'>
-                                            <option value="">Select day</option>
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                            <option value="Saturday">Saturday</option>
-                                            <option value="Sunday">Sunday</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required name='hour' onchange='this.form.()'>
-                                            <option value="">Select hour</option>
-                                            <option value="10-00">10:00</option>
-                                            <option value="12-00">12:00</option>
-                                            <option value="14-00">14:00</option>
-                                            <option value="16-00">16:00</option>
-                                            <option value="18-00">18:00</option>
-                                            <option value="20-00">20:00</option>
-                                            <option value="22-00">22:00</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <input name="name" type="name" class="form-control" id="name" placeholder="Full name" required="">
-                                    </fieldset> 
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <input name="phone" type="phone" class="form-control" id="phone" placeholder="Phone number" required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <select required class="person" name='persons' onchange='this.form.()'>
-                                            <option value="">How many persons?</option>
-                                            <option value="1-Person">1 Person</option>
-                                            <option value="2-Persons">2 Persons</option>
-                                            <option value="3-Persons">3 Persons</option>
-                                            <option value="4-Persons">4 Persons</option>
-                                            <option value="5-Persons">5 Persons</option>
-                                            <option value="6-Persons">6 Persons</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit" class="btn">Book Table</button>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
 
 
@@ -387,11 +316,11 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <p>Copyright &copy; 2020 Victory Template</p>
+                    <p>Copyright &copy; 2020 Sihina Frocks</p>
                 </div>
                 <div class="col-md-4">
                     <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a rel="nofollow" href="https://fb.com/templatemo"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-rss"></i></a></li>
@@ -399,7 +328,7 @@ https://templatemo.com/tm-507-victory
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <p>Design: TemplateMo</p>
+                    <p></p>
                 </div>
             </div>
         </div>
