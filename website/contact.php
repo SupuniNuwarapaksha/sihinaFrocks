@@ -1,6 +1,26 @@
 <?php
 // Initialize the session
 session_start();
+
+//include('./registration.php');
+include('../config/connectDB.php');
+$fname=$email=$phone=$message="";
+if(isset($_POST['form-submit'])){
+    
+    //$nerr=$eerr=$perr=$merr="";
+        $fname=$_POST['name'];
+        $email=$_POST['email'];
+        $phone=$_POST['phone'];
+        $message=$_POST['message'];
+
+        //sql
+        $sql="INSERT INTO message(fname,email,phone,message) VALUES ('$fname','$email','$phone','$message')";
+        
+        if(mysqli_query($conn,$sql)) {
+            header("location: thanks.php");
+        }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -116,7 +136,7 @@ https://templatemo.com/tm-507-victory
                     <div class="section-heading">
                         <h2>Message</h2>
                     </div>
-                    <form id="contact" action="" method="post">
+                    <form id="contact" name="contact" action="" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <fieldset>
@@ -134,7 +154,7 @@ https://templatemo.com/tm-507-victory
                                     <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
                                 </fieldset>
                                 <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Message</button>
+                                    <button type="submit" id="form-submit" name="form-submit" class="btn">Send Message</button>
                                 </fieldset>
                             </div>
                         </div>
