@@ -61,6 +61,7 @@ form.form1{
     color:#FFF;
 }
 
+
 .button {
   background-color: #4CAF50; /* Green */
   border: none;
@@ -109,7 +110,7 @@ tr:nth-child(even) {
 #editfrom{
  padding: 200px 20px;
  max-width:600px;
- max-height:600px;
+ max-height:230px;
  background-image: url('form.jpg');
  color:#FFF;
 }
@@ -126,6 +127,8 @@ tr:nth-child(even) {
   <a href="index.php">Home</a>
   <a href="addNew.php">Add New Items</a>
   <a href="view.php">View Items</a>
-  <a href="publish.php">Publish Items</a>
-  
+  <a href="accept.php">New Orders</a>
+  <a href="accepted.php">Accepted Orders</a>
+  <a href="inbox.php">Messages </a>
+  <a href="appointment.php">Appointments </a>
 </div>

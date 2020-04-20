@@ -10,7 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 include('../config/connectDB.php');
 
-
+$code="";
 
 if(isset($_GET['id'])){
     $code=mysqli_real_escape_string($conn, $_GET['id']);
@@ -29,6 +29,8 @@ if(isset($_GET['id'])){
    // print_r($frock);
 }
 
+
+
 if(isset($_POST['Update'])){
     $code=mysqli_real_escape_string($conn, $_POST['Code']);
    // echo $code;
@@ -38,20 +40,39 @@ if(isset($_POST['Update'])){
    $Price=mysqli_real_escape_string($conn, $_POST['Price']);
    $Material=mysqli_real_escape_string($conn, $_POST['Material']);
    $Size=mysqli_real_escape_string($conn, $_POST['Size']);
-   $Publish=mysqli_real_escape_string($conn, $_POST['Publish']);
   
-    $sql="UPDATE frock SET fname='$Name',ftype='$Type',price=$Price,material='$Material',size='$Size',publish=$Publish WHERE fcode='$code'";
+    $sql="UPDATE frock SET fname='$Name',ftype='$Type',price=$Price,material='$Material',size='$Size' WHERE fcode='$code'";
     
     if(mysqli_query($conn,$sql)){
       header('Location: index.php');
       }else{
         echo "Error ".mysqli_error($conn);
+        header('Location: index.php');
       }
 }
+
+if(isset($_POST['Publish'])){
+  $code=mysqli_real_escape_string($conn, $_POST['Code']);
+ // echo $code;
+
+
+  $sql="UPDATE frock SET publish=1 WHERE fcode='$code'";
+  
+  if(mysqli_query($conn,$sql)){
+    header('Location: index.php');
+    }else{
+      echo "Error ".mysqli_error($conn);
+      header('Location: index.php');
+    }
+}
+
+
 ?>
 
 <html>
 <?php include('templates/header.php') ?>
+
+
 <center>
 <?php $linkToPic=str_replace("open","uc",$frock['link']);?>
 <img src="<?php echo $linkToPic ?>" alt=""  width="700">
@@ -85,14 +106,12 @@ if(isset($_POST['Update'])){
   <input type="text"  name="Size" style="#FFF" value="<?php echo htmlspecialchars($frock['size']);?>"><br>
   <br>
 
-  <label for="Publish">Publish:</label><br>
-  <input type="text"  name="Publish" ><br>
-  <br>
+ 
   <!--<label for="Publish"> Publish</label><br>
   <input type="checkbox"  name="Publish" value="1">-->
   
-
-  <div> <input type="submit"  name="Update" class="button button5"></div>
+  <input type="submit"  name="Publish" class="button button5" value="Publish">
+ <div> <input type="submit"  name="Update" class="button button5" value="Edit"></div>
 
 </form>
 

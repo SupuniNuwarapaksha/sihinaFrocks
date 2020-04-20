@@ -29,7 +29,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter your password.";
     } else{
-        $password = trim($_POST["password"]);
+       // $password = trim($_POST["password"]);
+        $password=md5($_POST['password']); 
     }
 
     $sql="SELECT * FROM user_account WHERE user_name='$username'";
@@ -37,8 +38,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
 
     $user=mysqli_fetch_assoc($result);
-
-   // echo $user['passwd'];
 
    if($user['passwd']==$password){
     session_start();

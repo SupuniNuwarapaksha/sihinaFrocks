@@ -20,7 +20,6 @@ $userDetails=mysqli_fetch_assoc($result);
 <html>
 <?php include('templates/header.php') ?>
 
-<center><h1 style="color: #818181;"><a href="logout.php">Logout</a></h1></center>
 
 <center>
 
@@ -36,9 +35,13 @@ $userDetails=mysqli_fetch_assoc($result);
   <br>
 
   <div> <input type="submit"  name="Update" class="button button5"></div>
-  <a href="">Change Password</a>
+  <a href="changepwd.php">Change Password</a>
 </form>
 
+</center>
+
+<center>
+<div> <input  type="button" onclick="window.location.href = 'logout.php';" class="button button5" value="Logout"></div>
 </center>
 
 <?php include('templates/footer.php') ?>
