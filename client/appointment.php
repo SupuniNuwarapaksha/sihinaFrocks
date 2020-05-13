@@ -18,10 +18,13 @@ $sql='SELECT * FROM `appointment`';
 $result=mysqli_query($conn,$sql);
 $appointments=mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+
+
+
   if(isset($_POST['Delete'])){
     $id_to_delete= mysqli_real_escape_string($conn, $_POST['id_to_delete']);
-    $sql="UPDATE appointment SET accept=2 WHERE id='$id_to_delete'";
-
+    $sql="DELETE FROM appointment WHERE id='$id_to_delete'";
+    //echo $id_to_delete;
     if(mysqli_query($conn,$sql)){
         header('Location: appointment.php');
     }else{
@@ -31,6 +34,7 @@ $appointments=mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   if(isset($_POST['accept'])){
     $id_to_accept= mysqli_real_escape_string($conn, $_POST['id_to_delete']);
+
     $sql="UPDATE appointment SET accept=1 WHERE id='$id_to_accept'";
 
     if(mysqli_query($conn,$sql)){
